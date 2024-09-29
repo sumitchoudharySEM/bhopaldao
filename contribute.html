@@ -8,7 +8,7 @@
     <link href="css/vendors/aos.css" rel="stylesheet">
     <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
     <link href="./css/style.css" rel="stylesheet">
-    
+
 </head>
 
 <body class="c4f4x cupde cs2bp c55gg czrq6">
@@ -46,41 +46,41 @@
 
                         <!-- Form -->
                         <div class="c1omz csya4">
-
-                            <form>
+                            <form id="contributor-form">
                                 <div class="cavuv">
                                     <div>
                                         <label class="cit3o ccqx1 cvdvu cxz3l c986a" for="full-name">Full Name <span
                                                 class="c620h">*</span></label>
                                         <input id="full-name" class="c6i2l ca0gw" type="text"
-                                            placeholder="E.g., Mark Rossi" required="">
+                                            placeholder="E.g., Mark Rossi" required>
                                     </div>
                                     <div>
                                         <label class="cit3o ccqx1 cvdvu cxz3l c986a" for="email">Email <span
                                                 class="c620h">*</span></label>
                                         <input id="email" class="c6i2l ca0gw" type="email"
-                                            placeholder="gm@bhopaldao.com" required="">
+                                            placeholder="gm@bhopaldao.com" required>
                                     </div>
                                     <div>
-                                        <label class="cit3o ccqx1 cvdvu cxz3l c986a" for="github-profile">GitHub Profile <span
-                                                class="c620h">*</span></label>
+                                        <label class="cit3o ccqx1 cvdvu cxz3l c986a" for="github-profile">GitHub Profile
+                                            <span class="c620h">*</span></label>
                                         <input id="github-profile" class="c6i2l ca0gw" type="text"
-                                            placeholder="https://github.com/username" required="">
+                                            placeholder="https://github.com/username" required>
                                     </div>
                                     <div>
-                                        <label class="cit3o ccqx1 cvdvu cxz3l c986a" for="full-name">Twitter<span
+                                        <label class="cit3o ccqx1 cvdvu cxz3l c986a" for="twitter-profile">Twitter<span
                                                 class="c620h">*</span></label>
                                         <input id="twitter-profile" class="c6i2l ca0gw" type="text"
-                                            placeholder="https://x.com/username" required="">
+                                            placeholder="https://x.com/username" required>
                                     </div>
                                     <div>
-                                        <label class="cit3o ccqx1 cvdvu cxz3l c986a" for="referrer">How can you contribute?<span class="c620h">*</span></label>
-                                        <input id="twitter-profile" class="c6i2l ca0gw" type="text"
-                                            placeholder="Share your ideas" required="">
+                                        <label class="cit3o ccqx1 cvdvu cxz3l c986a" for="referrer">How can you
+                                            contribute?<span class="c620h">*</span></label>
+                                        <input id="contribution" class="c6i2l ca0gw" type="text"
+                                            placeholder="Share your ideas" required>
                                     </div>
                                 </div>
                                 <div class="ckwat">
-                                    <button class="ckbyi cw2sl cnur3 cgpyo cvdvu ca0gw cq2yg cyijk">
+                                    <button type="submit" class="ckbyi cw2sl cnur3 cgpyo cvdvu ca0gw cq2yg cyijk">
                                         Contribute <span class="c9pof c406y cxxyq ckj0y cx3jz cgi3a cqzh1">-&gt;</span>
                                     </button>
                                 </div>
@@ -104,6 +104,60 @@
         integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
         data-cf-beacon='{"rayId":"8a3b13c97d379fa5","version":"2024.6.1","r":1,"serverTiming":{},"token":"59cc17d45d734f9ba118c63036ab1b84","b":1}'
         crossorigin="anonymous"></script>
+
+    <!-- Firebase and Firestore Setup -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBWqnviGd-EkIW-0j-IRXm9u62vvlgMpT8",
+            authDomain: "bhopal-dao.firebaseapp.com",
+            projectId: "bhopal-dao",
+            storageBucket: "bhopal-dao.appspot.com",
+            messagingSenderId: "466394611496",
+            appId: "1:466394611496:web:4d6306a39d134c90295a1d"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        // Initialize Firestore
+        const db = getFirestore(app);
+
+        // Handle form submission
+        document.getElementById("contributor-form").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            // Get form data
+            const fullName = document.getElementById("full-name").value;
+            const email = document.getElementById("email").value;
+            const githubProfile = document.getElementById("github-profile").value;
+            const twitterProfile = document.getElementById("twitter-profile").value;
+            const contribution = document.getElementById("contribution").value;
+
+            try {
+                // Add document to Firestore
+                await addDoc(collection(db, "contributor"), {
+                    fullName: fullName,
+                    email: email,
+                    githubProfile: githubProfile,
+                    twitterProfile: twitterProfile,
+                    contribution: contribution,
+                    timestamp: new Date() // Optional: timestamp for tracking
+                });
+
+                // Success alert and form reset
+                alert("Your details have been submitted successfully!");
+                document.getElementById("contributor-form").reset();
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                alert("Failed to submit your details. Please try again.");
+            }
+        });
+    </script>
 </body>
 
 </html>
