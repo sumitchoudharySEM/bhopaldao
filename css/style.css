@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&amp;display=fallback);
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 *,
 ::before,
@@ -27,8 +27,10 @@ html {
 
 body {
     margin: 0;
-    line-height: inherit
+    line-height: inherit;
+    font-family: Work Sans !important;
 }
+
 
 hr {
     height: 0;
