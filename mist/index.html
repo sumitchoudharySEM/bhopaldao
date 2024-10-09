@@ -8,15 +8,15 @@
         body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: #000;
         }
         #player {
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
         }
     </style>
 </head>
@@ -41,8 +41,8 @@
         var player;
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
-                height: '100%',
-                width: '100%',
+                height: '100vh',
+                width: '100vw',
                 videoId: 'xU2M0rDBmBY', // Replace with your video ID
                 playerVars: {
                     'autoplay': 0,
