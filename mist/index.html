@@ -1,35 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" class="cmmz3">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Player</title>
+    <title>Mist</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        body, html {
             margin: 0;
-            background-color: #f0f0f0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
         }
-        .video-container {
-            max-width: 800px;
+        iframe {
             width: 100%;
-        }
-        video {
-            width: 100%;
-            height: auto;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <div class="video-container">
-        <video controls>
-            <source src="https://youtu.be/xU2M0rDBmBY" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
+    <iframe src="https://youtu.be/xU2M0rDBmBY" allowfullscreen></iframe>
+    <script>
+        window.addEventListener('load', function() {
+            var iframe = document.querySelector('iframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) { // Firefox
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) { // IE/Edge
+                iframe.msRequestFullscreen();
+            }
+        });
+    </script>
 </body>
 </html>
